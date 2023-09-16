@@ -1,0 +1,66 @@
+import { StatusBar } from 'expo-status-bar';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+
+export default function App() {
+
+  const frases = [
+    'Só é derrotado quem tenta',
+    'Deixe sempre para amanhã o que pode ser feito hoje',
+    'Ontem eu não era nada, hoje eu não sou ninguem',
+    'Só porque os outros conseguiram não quer dizer que você vai conseguir',
+    'Todo corpo no Everest já foi uma pessoa motivada'
+  ];
+  
+  const [frase, setFrase] = useState('Descubra sua sorte do dia!');
+  const [imagem, setImagem] = useState(require('./img/biscoito_default.png'));
+
+  function SorteiaFrase(){
+    let sorteado = '';
+
+    while (frases[sorteado] == frase || sorteado == '')
+      sorteado = Math.floor(Math.random() * frases.length);
+    setFrase(frases[sorteado]);
+    setImagem(require('./img/bixoite_aberto.jpg'))
+  }
+
+  return (
+    <View style={styles.container}>
+      <StatusBar style="auto" />
+      <Image style={styles.img} 
+      source={imagem} />
+      <Text style={styles.txt}>"{frase}"</Text>
+      <TouchableOpacity style={styles.btn} onPress={SorteiaFrase}>
+        <Text>Estou com Sorte!</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  img : {
+    width: 200,
+    height: 200
+  },
+  
+  btn : {
+    borderColor: 'black',
+    backgroundColor: '#ABA5F3',
+    borderRdius: 5,
+    padding: 15,
+    margin:25
+  },
+
+  txt : {
+    fontSize: 18,
+    marginTop: 25,
+    fontStyle: 'italic',
+  }
+});
